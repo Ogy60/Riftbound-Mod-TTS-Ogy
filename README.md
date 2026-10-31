@@ -2,6 +2,8 @@
 
 A Tabletop Simulator table for the Riftbound trading card game: 1v1, 2v2, FFA 3 and FFA 4 on one custom table. Paste a Piltover Archive deck code and your deck lays itself out. All controls live on the table itself, with no screen overlay, and TTS's own turn indicator shows whose turn it is.
 
+*Unofficial fan project, free to use. Not endorsed or sponsored by Riot Games – see [Legal](#legal).*
+
 **Found a bug or have an idea?** [Open an issue](../../issues/new/choose). In the game: press **Report a bug** on the host console or type `!rb bug` in chat.
 
 ## Install
@@ -76,11 +78,21 @@ From left to right:
 * **Cards show only their back:** the card lookup failed. Type `!rb test OGN-007` in chat and add the output to a bug report. The import message also tells you how many cards were found.
 * **Mats facing the wrong way:** press **Rotate mats** on the host console.
 
-## Credits and license
+## Credits
 
-Code and original artwork: Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE).
+- **Riot Games** created Riftbound. All card names, card text, card art, rules and the Riftbound name and logo belong to Riot Games. Card data and images come from Riot's [official card gallery](https://playriftbound.com/en-us/card-gallery/) and are loaded when you import a deck.
+- **Piltover Archive:** deck codes are decoded by a Lua port of their open-source [RiftboundDeckCodes](https://github.com/Piltover-Archive/RiftboundDeckCodes) (Apache-2.0).
+- **Riftcodex:** the community [Riftcodex](https://api.riftcodex.com) API is the fallback for card data.
+- **Mod, code and table artwork:** Ogy.
 
-- **Deck codes:** decoded by a Lua port of Piltover Archive's open-source [RiftboundDeckCodes](https://github.com/Piltover-Archive/RiftboundDeckCodes) (Apache-2.0).
-- **Card data and images:** loaded from Riot's official card gallery when you import, with the community [Riftcodex](https://api.riftcodex.com) API as fallback. No card images or other Riot assets are stored in this repository or in the save.
+## Legal
 
-Riftbound Mod TTS Ogy was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
+Riftbound Mod TTS Ogy was created under Riot Games' ["Legal Jibber Jabber"](https://www.riotgames.com/en/legal) policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
+
+- This is an unofficial fan project. It is not affiliated with Riot Games.
+- Riftbound and Riot Games are trademarks or registered trademarks of Riot Games, Inc.
+- The mod is free and always will be. It has no paid features, ads or donations.
+- No Riot Games assets are stored in this repository, the save file or the release downloads. Card data and images are loaded from Riot's website while you play.
+- If you represent Riot Games and want anything changed or removed, please [open an issue](../../issues/new) and it will be handled right away.
+
+The mod's own code and table artwork are licensed under the Apache License 2.0 (see [LICENSE](LICENSE) and [NOTICE](NOTICE)). That license does not cover any Riot Games material.
