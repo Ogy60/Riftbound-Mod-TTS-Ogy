@@ -2,7 +2,7 @@
 
 ## 4.0.0 – first public release
 
-- Renamed to **Riftbound by Ogy**.
+- Renamed to **Riftbound Mod TTS Ogy**.
 - **Report a bug** button and copyable issue link on the host console; `!rb bug` in chat.
 - Name, version and Riot disclaimer shown on the host console, in chat on load and in the notebook.
 - Rules text is now read correctly from Riot's card data (hover text and printed battlefield text).

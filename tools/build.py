@@ -3,9 +3,9 @@
     python tools/build.py
 
 1. Checks src/Global.lua (block/bracket balance) and the table layout.
-2. Writes dist/Riftbound by Ogy.json: save/Riftbound by Ogy.json with the
+2. Writes dist/Riftbound Mod TTS Ogy.json: save/Riftbound Mod TTS Ogy.json with the
    script from src/Global.lua put in.
-3. Writes dist/riftbound-by-ogy-v<version>.zip with the save, the images,
+3. Writes dist/riftbound-mod-tts-ogy-v<version>.zip with the save, the images,
    README, LICENSE and NOTICE.
 
 The version comes from MOD_VERSION in src/Global.lua.
@@ -19,7 +19,7 @@ import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "src" / "Global.lua"
-TEMPLATE = ROOT / "save" / "Riftbound by Ogy.json"
+TEMPLATE = ROOT / "save" / "Riftbound Mod TTS Ogy.json"
 DIST = ROOT / "dist"
 
 
@@ -51,10 +51,10 @@ def main():
     save = json.loads(TEMPLATE.read_text(encoding="utf-8"))
     save["LuaScript"] = lua
     DIST.mkdir(exist_ok=True)
-    out_save = DIST / "Riftbound by Ogy.json"
+    out_save = DIST / "Riftbound Mod TTS Ogy.json"
     out_save.write_text(json.dumps(save, indent=2, ensure_ascii=False), encoding="utf-8")
 
-    out_zip = DIST / f"riftbound-by-ogy-v{version}.zip"
+    out_zip = DIST / f"riftbound-mod-tts-ogy-v{version}.zip"
     with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED) as z:
         z.write(out_save, out_save.name)
         for f in ("assets/card_back.png", "assets/playmat.png", "assets/battlefield_mat.png",

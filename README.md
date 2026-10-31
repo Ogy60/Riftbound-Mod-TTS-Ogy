@@ -1,4 +1,4 @@
-# Riftbound by Ogy
+# Riftbound Mod TTS Ogy
 
 A Tabletop Simulator table for the Riftbound trading card game: 1v1, 2v2, FFA 3 and FFA 4 on one custom table. Paste a Piltover Archive deck code and your deck lays itself out. All controls live on the table itself, with no screen overlay, and TTS's own turn indicator shows whose turn it is.
 
@@ -6,9 +6,9 @@ A Tabletop Simulator table for the Riftbound trading card game: 1v1, 2v2, FFA 3 
 
 ## Install
 
-**From the Steam Workshop:** subscribe, then TTS → Create → Singleplayer → Workshop → *Riftbound by Ogy*.
+**From the Steam Workshop:** subscribe, then TTS → Create → Singleplayer → Workshop → *Riftbound Mod TTS Ogy*.
 
-**From GitHub:** download the zip from [Releases](../../releases) and copy `Riftbound by Ogy.json` into `Documents\My Games\Tabletop Simulator\Saves\` (or `OneDrive\Documents\...`). Then TTS → Create → Singleplayer → Games → Save & Load → *Riftbound by Ogy*. The table builds itself.
+**From GitHub:** download the zip from [Releases](../../releases) and copy `Riftbound Mod TTS Ogy.json` into `Documents\My Games\Tabletop Simulator\Saves\` (or `OneDrive\Documents\...`). Then TTS → Create → Singleplayer → Games → Save & Load → *Riftbound Mod TTS Ogy*. The table builds itself.
 
 **One-time host setup** (only for the GitHub version or your own copy):
 1. In TTS, open Upload → Cloud Manager and upload `card_back.png`, `playmat.png` and `battlefield_mat.png`.
@@ -82,7 +82,7 @@ From left to right:
 
 ```
 src/Global.lua            the whole mod (TTS Global script)
-save/Riftbound by Ogy.json the save without its script
+save/Riftbound Mod TTS Ogy.json the save without its script
 assets/                   original table artwork (card back, playmat, battlefield mat)
 tools/build.py            checks the script, builds dist/ (playable save + release zip)
 tools/make_mat.py         redraws assets/playmat.png from the zone layout in Global.lua
@@ -93,7 +93,7 @@ tests/fixtures/           Piltover Archive's golden deck codes
 
 **Making a release:**
 1. Edit `src/Global.lua` and raise `MOD_VERSION`. Add a line to `CHANGELOG.md`.
-2. Run `python tools/build.py`. Then test `dist/Riftbound by Ogy.json` in TTS: import a deck with cards from the newest set, and play a few turns in 1v1 and one 4-player mode.
+2. Run `python tools/build.py`. Then test `dist/Riftbound Mod TTS Ogy.json` in TTS: import a deck with cards from the newest set, and play a few turns in 1v1 and one 4-player mode.
 3. Commit, tag (`git tag v4.0.1`), push, and attach the zip from `dist/` to a GitHub release.
 4. In TTS, load the tested save → Upload → Workshop Upload, and update the existing Workshop item instead of creating a new one.
 
@@ -110,4 +110,4 @@ Code and original artwork: Apache License 2.0, see [LICENSE](LICENSE) and [NOTIC
 - **Deck codes:** decoded by a Lua port of Piltover Archive's open-source [RiftboundDeckCodes](https://github.com/Piltover-Archive/RiftboundDeckCodes) (Apache-2.0).
 - **Card data and images:** loaded from Riot's official card gallery when you import, with the community [Riftcodex](https://api.riftcodex.com) API as fallback. No card images or other Riot assets are stored in this repository or in the save.
 
-Riftbound by Ogy was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
+Riftbound Mod TTS Ogy was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.

@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND BY OGY  -  Riftbound TCG table for Tabletop Simulator    v4.0.0
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v4.0.0
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -23,7 +23,7 @@
   RiftboundDeckCodes (Apache-2.0):
   https://github.com/Piltover-Archive/RiftboundDeckCodes
 
-  Riftbound by Ogy was created under Riot Games' "Legal Jibber Jabber"
+  Riftbound Mod TTS Ogy was created under Riot Games' "Legal Jibber Jabber"
   policy using assets owned by Riot Games. Riot Games does not endorse or
   sponsor this project.
 ]]
@@ -32,9 +32,9 @@
 -- CONFIG
 ------------------------------------------------------------------------
 
-MOD_NAME    = "Riftbound by Ogy"
+MOD_NAME    = "Riftbound Mod TTS Ogy"
 MOD_VERSION = "4.0.0"
-REPO_URL    = "https://github.com/Ogy60/riftbound-by-ogy"
+REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
               "assets owned by Riot Games. Riot Games does not endorse or sponsor this project."
