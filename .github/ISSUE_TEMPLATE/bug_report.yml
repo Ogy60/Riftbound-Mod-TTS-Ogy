@@ -9,7 +9,7 @@ body:
     id: version
     attributes:
       label: Mod version
-      description: Shown at the bottom of the host console and in chat when the table loads (e.g. 4.0.0).
+      description: Shown at the bottom of the host console and in chat when the table loads (e.g. 1.0).
     validations:
       required: true
   - type: dropdown

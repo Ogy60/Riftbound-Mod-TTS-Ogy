@@ -19,7 +19,7 @@ tests/fixtures/                  Piltover Archive's golden deck codes
 
 1. Edit `src/Global.lua` and raise `MOD_VERSION`. Add a line to `CHANGELOG.md`.
 2. Run `python tools/build.py`. Then test `dist/Riftbound Mod TTS Ogy.json` in TTS: import a deck with cards from the newest set, and play a few turns in 1v1 and one 4-player mode.
-3. Commit, tag (`git tag v4.0.1`), push, and attach the zip from `dist/` to a GitHub release.
+3. Commit, tag (`git tag v1.1`), push, and attach the zip from `dist/` to a GitHub release.
 4. In TTS, load the tested save → Upload → Workshop Upload, and update the existing Workshop item instead of creating a new one.
 
 ## When a new set comes out
