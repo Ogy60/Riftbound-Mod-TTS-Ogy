@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.3
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.4
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.3"
+MOD_VERSION = "1.0.4"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -753,18 +753,21 @@ function fetchCards(codes, callback)
       end
       -- Basic runes are the same card in every set, but Riot's gallery only
       -- lists some sets' rune printings (no UNL-R.. at all): use another set's.
-      local usedOther
+      local usedOther = nil
       if off and p and p.prefix == "R" and not item then
-        for _, s in ipairs(RUNE_FALLBACK_SETS) do
-          local q = { set = s, prefix = "R", num = p.num, variant = p.variant }
-          item = read(canonKey(q, true)) or read(canonKey(q, false))
-          if item then usedOther = s; break end
+        local i = 1
+        while not item and i <= #RUNE_FALLBACK_SETS do
+          local setCode = RUNE_FALLBACK_SETS[i]
+          local key = string.lower(setCode) .. "-r" .. tostring(p.num)
+          item = read(key .. (p.variant or "")) or read(key)
+          if item then usedOther = setCode end
+          i = i + 1
         end
       end
       if item and item.media.image_url then
         info[code] = cardInfoFromItem(item, code)
         if usedBase then warnings[#warnings + 1] = code .. ": that printing isn't listed, used the base art" end
-        if usedOther then warnings[#warnings + 1] = code .. ": not in Riot's gallery, used the " .. usedOther .. " printing of the same rune" end
+        if usedOther then warnings[#warnings + 1] = code .. ": not in Riot's gallery, used the " .. tostring(usedOther) .. " printing of the same rune" end
       else
         rest[#rest + 1] = code
       end

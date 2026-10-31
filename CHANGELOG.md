@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+
+- Fixed: importing a deck stopped with a Lua error in 1.0.3.
+
 ## 1.0.3
 
 - Fixed: runes whose printing isn't in Riot's card gallery (for example UNL-R05a) showed only a card back. They now use the same rune from another set.
