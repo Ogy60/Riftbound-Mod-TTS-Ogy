@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Fixed: after Peek, the Trash and Banish buttons sent the cards back to your hand instead of moving them.
+
 ## 1.0.1
 
 - Table images are built in: no more pasting image links before the first game. The host can still use their own card back and mats.

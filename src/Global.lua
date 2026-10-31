@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.1
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.2
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.1"
+MOD_VERSION = "1.0.2"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -1482,8 +1482,17 @@ function applyAction(color, act, cards)
   if #list == 0 then return end
   if act == "top" then putOnTop(color, list, "mainDeck")
   elseif act == "bottom" then recycleCards(color, list, "mainDeck", false)
-  elseif act == "trash" then for _, c in ipairs(list) do moveToZone(c, color, "trash", true) end
-  elseif act == "banish" then for _, c in ipairs(list) do moveToZone(c, color, "banish", true) end
+  elseif act == "trash" or act == "banish" then
+    -- Placed instantly, one after another: a card still in a player's hand
+    -- is pulled back into the hand if it is moved with a smooth slide.
+    local rot = { 0, seatFrame(color).cardRotY, 0 }
+    for i, c in ipairs(list) do
+      Wait.time(function()
+        if not alive(c) then return end
+        c.setRotation(rot)
+        c.setPosition(zonePos(color, act, 1.2 + 0.25 * i))
+      end, (i - 1) * 0.2)
+    end
   elseif act == "hand" then
     local hp = handPos(color)
     for _, c in ipairs(list) do
