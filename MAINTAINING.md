@@ -9,9 +9,11 @@ src/Global.lua                   the whole mod (TTS Global script)
 save/Riftbound Mod TTS Ogy.json  the save without its script
 assets/                          original table artwork (card back, playmat, battlefield mat)
 tools/build.py                   checks the script, builds dist/ (playable save + release zip)
+tools/make_thumbnail.py          draws assets/thumbnail.png (Steam Workshop thumbnail)
 tools/make_mat.py                redraws assets/playmat.png from the zone layout in Global.lua
 tools/audit_layout.py            checks every mode for overlapping or off-table elements
 tools/ref_decode.py              Python mirror of the deck-code decoder for testing
+workshop_description.txt         Steam Workshop description (BBCode)
 tests/fixtures/                  Piltover Archive's golden deck codes
 ```
 

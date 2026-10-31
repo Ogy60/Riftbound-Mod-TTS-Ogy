@@ -1,0 +1,34 @@
+[h1]Riftbound Mod TTS Ogy[/h1]
+A free, unofficial Tabletop Simulator table for the Riftbound trading card game. Paste your Piltover Archive deck code and your whole deck lays itself out – legend, champion, runes, battlefields, sideboard and tokens.
+
+[h2]Features[/h2]
+[list]
+[*][b]1v1, 2v2, FFA 3 and FFA 4[/b] on one table, every player with their own mat and table side
+[*][b]Deck-code import[/b] from Piltover Archive, with card images and text from Riot's official card gallery (all sets)
+[*][b]Automatic setup:[/b] everything goes to its zone; pick your champion privately from your hand
+[*][b]Official game flow:[/b] random first player, battlefields per mode, opening hand, mulligan, turn phases, Burn Out, first-turn rules
+[*][b]Peek and reveal[/b] with quick action buttons (top / bottom of deck, trash, banish, to hand)
+[*][b]Drag to TOP or BOTTOM[/b] of your main deck and rune deck
+[*][b]Supply:[/b] Buff, Might, Damage, Stunned and Tag markers, dice, and a token card selector (Recruit, Sprite, Gold, …)
+[*][b]Battlefield text[/b] printed on the table, readable from every seat
+[*]All controls are on the table itself – no screen overlay
+[/list]
+
+[h2]How to play[/h2]
+[olist]
+[*]Press [b]Sit here[/b] on the control strip at your side of the table.
+[*]Host picks the mode on the host console.
+[*]Paste your deck code into your strip and press [b]Import[/b]. Drag one champion from your hand onto the Champion slot.
+[*]Host presses [b]Start game[/b]. Mulligan by dragging up to 2 cards onto your Base, then press [b]Mulligan done[/b].
+[/olist]
+The in-game notebook and [b]!rb help[/b] in chat explain the rest.
+
+[h2]Bugs and ideas[/h2]
+Press [b]Report a bug[/b] on the host console, type [b]!rb bug[/b] in chat, or open an issue on GitHub:
+[url=https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy/issues]github.com/Ogy60/Riftbound-Mod-TTS-Ogy[/url]
+Please include your deck code, the mode and any chat line starting with [Riftbound].
+
+[h2]Credits[/h2]
+Riftbound, its cards, card art, text and rules belong to Riot Games. Deck codes are decoded with a port of Piltover Archive's open-source RiftboundDeckCodes (Apache-2.0). Table artwork and mod by Ogy.
+
+[i]Riftbound Mod TTS Ogy was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.[/i]
