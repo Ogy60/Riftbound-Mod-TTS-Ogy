@@ -35,3 +35,10 @@ Riot has probably changed their card gallery page. The reader is `loadOfficial` 
 
 * **Button text upside down:** change `BTN_ROT_OFFSET` at the top of `src/Global.lua` (180 by default; try 0).
 * **Buttons too big / small:** change `BTN_UNITS` (default 450).
+
+## Table images
+
+The card back, playmat and battlefield mat are hosted in Ogy's Steam Cloud. Their links are `DEFAULT_BACK_URL`, `DEFAULT_MAT_URL` and `DEFAULT_BF_URL` at the top of `src/Global.lua`, and every copy of the mod loads them from there.
+
+- **Never delete these three files from the TTS Cloud Manager**, or every copy of the mod loses its table images.
+- To change an image: edit it in `assets/` (the playmat can be redrawn with `tools/make_mat.py`), upload it with Upload → Cloud Manager, put the new link into `src/Global.lua`, and release a new version. Keep the old file in the Cloud Manager so older versions keep working.

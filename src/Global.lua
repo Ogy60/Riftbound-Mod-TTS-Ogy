@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.1
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,16 +33,17 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0"
+MOD_VERSION = "1.0.1"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
               "assets owned by Riot Games. Riot Games does not endorse or sponsor this project."
 
--- Optional hard-coded asset URLs (the host can also set them in-game).
-DEFAULT_BACK_URL = ""
-DEFAULT_MAT_URL  = ""
-DEFAULT_BF_URL   = ""
+-- Built-in table images (Steam Cloud). The host can replace them in-game;
+-- an empty field on the host console means "use these".
+DEFAULT_BACK_URL = "https://steamusercontent-a.akamaihd.net/ugc/15758477085434816652/60D216CD97A5CE21A83E60530BFCCCC2C69E2F22/"
+DEFAULT_MAT_URL  = "https://steamusercontent-a.akamaihd.net/ugc/11322668652851882410/0133BFD6A55A70DFF52955C3BF53FE932904CCC3/"
+DEFAULT_BF_URL   = "https://steamusercontent-a.akamaihd.net/ugc/15972865263461550872/B3389F04CD7A83C98862D08EF29B6F45D3F65757/"
 
 API_BASE   = "https://api.riftcodex.com"
 CARD_SCALE = 1.2
@@ -2990,14 +2991,14 @@ function buildHostControls()
     "Run turn phases automatically")
   hbtn("rotate", -2.95, -0.5, 5.7, 1.0, "Rotate mats", hostFn("rbh_rotate", function(_, pc) hostRotate(pc) end), "normal")
   hbtn("rebuild", 2.95, -0.5, 5.7, 1.0, "Rebuild table", hostFn("rbh_rebuild", function(_, pc) hostRebuild(pc) end), "normal")
-  hbtn("backLabel", 0, -1.6, 11.6, 0.7, "CARD BACK LINK - paste, then click elsewhere", nil, "muted")
-  hinput("back", 0, -2.45, "Card back image link (required)", hostFn("rbh_in_back",
+  hbtn("backLabel", 0, -1.6, 11.6, 0.7, "OWN CARD BACK (optional) - paste, click elsewhere", nil, "muted")
+  hinput("back", 0, -2.45, "Empty = built-in card back", hostFn("rbh_in_back",
     function(_, pc, v, sel) hostAsset(pc, "back", v, sel) end), state.back)
-  hbtn("matLabel", 0, -3.4, 11.6, 0.7, "PLAYMAT IMAGE LINK", nil, "muted")
-  hinput("mat", 0, -4.25, "Playmat image link (optional)", hostFn("rbh_in_mat",
+  hbtn("matLabel", 0, -3.4, 11.6, 0.7, "OWN PLAYMAT (optional)", nil, "muted")
+  hinput("mat", 0, -4.25, "Empty = built-in playmat", hostFn("rbh_in_mat",
     function(_, pc, v, sel) hostAsset(pc, "mat", v, sel) end), state.mat)
-  hbtn("bfLabel", 0, -5.2, 11.6, 0.7, "BATTLEFIELD MAT IMAGE LINK", nil, "muted")
-  hinput("bf", 0, -6.05, "Battlefield mat image link (optional)", hostFn("rbh_in_bf",
+  hbtn("bfLabel", 0, -5.2, 11.6, 0.7, "OWN BATTLEFIELD MAT (optional)", nil, "muted")
+  hinput("bf", 0, -6.05, "Empty = built-in battlefield mat", hostFn("rbh_in_bf",
     function(_, pc, v, sel) hostAsset(pc, "bfMat", v, sel) end), state.bfMat)
   hbtn("bug", -4.0, -7.25, 3.6, 0.95, "Report a bug", hostFn("rbh_bug", function(_, pc) reportBug(pc) end),
     "primary", "Show where to report bugs")
@@ -3212,7 +3213,7 @@ function hostClearAsset(pc, key)
   pendingAsset[field] = ""
   if state[field] ~= "" then
     state[field] = ""
-    broadcastToColor("Link cleared." .. (key ~= "back" and " Press Rebuild table to remove the image." or ""), pc, { 0.8, 0.8, 0.8 })
+    broadcastToColor("Link cleared - the built-in image is used again." .. (key ~= "back" and " Press Rebuild table to apply it." or ""), pc, { 0.8, 0.8, 0.8 })
   end
 end
 

@@ -12,10 +12,9 @@ A Tabletop Simulator table for the Riftbound trading card game: 1v1, 2v2, FFA 3 
 
 **From GitHub:** download the zip from [Releases](../../releases) and copy `Riftbound Mod TTS Ogy.json` into `Documents\My Games\Tabletop Simulator\Saves\` (or `OneDrive\Documents\...`). Then TTS → Create → Singleplayer → Games → Save & Load → *Riftbound Mod TTS Ogy*. The table builds itself.
 
-**One-time host setup** (only for the GitHub version or your own copy):
-1. In TTS, open Upload → Cloud Manager and upload `card_back.png`, `playmat.png` and `battlefield_mat.png`.
-2. Click an image in the Cloud Manager to copy its link, paste it into the matching field on the **TABLE – HOST** console (a corner of the table), then click somewhere else.
-3. Press **Rebuild table** after adding the mat links, then save the game.
+The table images (playmat, battlefield mat, card back) are built in, so there's nothing to set up.
+
+**Your own images (optional):** the host can paste a link to their own card back, playmat or battlefield mat into the fields on the **TABLE – HOST** console (a corner of the table), then click somewhere else. For the mats, press **Rebuild table** afterwards. Clear a field with its **X** to go back to the built-in image. Steam's Cloud Manager (Upload → Cloud Manager in TTS) gives you a link for any image you upload.
 
 ## Playing
 

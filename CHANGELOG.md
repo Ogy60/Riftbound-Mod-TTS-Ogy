@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Table images are built in: no more pasting image links before the first game. The host can still use their own card back and mats.
+
 ## 1.0 – first public release
 
 - Renamed to **Riftbound Mod TTS Ogy**.

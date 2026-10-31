@@ -5,8 +5,9 @@
 1. Checks src/Global.lua (block/bracket balance) and the table layout.
 2. Writes dist/Riftbound Mod TTS Ogy.json: save/Riftbound Mod TTS Ogy.json with the
    script from src/Global.lua put in.
-3. Writes dist/riftbound-mod-tts-ogy-v<version>.zip with the save, the images,
-   README, LICENSE and NOTICE.
+3. Writes dist/riftbound-mod-tts-ogy-v<version>.zip with the save, README,
+   LICENSE, NOTICE and CHANGELOG. The table images are built in (Steam Cloud
+   links in src/Global.lua), so they are not part of the zip.
 
 The version comes from MOD_VERSION in src/Global.lua.
 """
@@ -57,8 +58,7 @@ def main():
     out_zip = DIST / f"riftbound-mod-tts-ogy-v{version}.zip"
     with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED) as z:
         z.write(out_save, out_save.name)
-        for f in ("assets/card_back.png", "assets/playmat.png", "assets/battlefield_mat.png",
-                  "README.md", "LICENSE", "NOTICE", "CHANGELOG.md"):
+        for f in ("README.md", "LICENSE", "NOTICE", "CHANGELOG.md"):
             z.write(ROOT / f, pathlib.Path(f).name)
     print(f"Built v{version}: {out_save.relative_to(ROOT)} and {out_zip.relative_to(ROOT)}")
 
