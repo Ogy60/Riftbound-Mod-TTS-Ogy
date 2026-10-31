@@ -1,0 +1,163 @@
+{
+  "SaveName": "Riftbound by Ogy",
+  "GameMode": "Riftbound by Ogy",
+  "Gravity": 0.5,
+  "PlayArea": 1.0,
+  "Date": "10/30/2026 10:45:00 PM",
+  "Table": "Table_None",
+  "Sky": "Sky_Museum",
+  "Note": "",
+  "Rules": "",
+  "XmlUI": "",
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "Hands": {
+    "Enable": true,
+    "DisableUnused": false,
+    "Hiding": 0
+  },
+  "TabStates": {
+    "0": {
+      "title": "Riftbound by Ogy - Start here",
+      "body": "RIFTBOUND BY OGY - quick start\n\n1. Sit down: press 'Sit here' on the control strip at your side of the table.\n2. Host: on the TABLE console (corner), paste the image links once (card back required; playmat and battlefield mat optional), pick the mode (1v1 / 2v2 / FFA 3 / FFA 4).\n3. Everyone: paste your Piltover Archive deck code into your strip, press Import. Legend, champion, runes, battlefields and sideboard go to their places automatically. Your champion copies go to your hand: drag one onto the Champion slot; the rest go back into the deck at game start.\n4. Host: Start game (Random or a colour).\n5. Mulligan: drag up to 2 cards onto your Base, press Mulligan done.\n6. Turns run automatically. Press End turn on your strip (or TTS's own turn button).\n\nSupply (table side / corners): marker and dice piles (grab one, a new one appears), and the token card selector (click < > to pick Recruit, Sprite, Gold..., then drag it out).\n\nRight-click a card: Reveal to everyone, Buff, Damage, To trash, Recycle, Banish, Return to hand.\nChat: !rb help\n\nFound a bug? Press 'Report a bug' on the host console or type !rb bug in chat.\n\nCard data: Riot's official card gallery (playriftbound.com), Riftcodex as fallback. Riftbound by Ogy was created under Riot Games' \"Legal Jibber Jabber\" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.",
+      "color": "Grey",
+      "visibleColor": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5
+      },
+      "id": 0
+    }
+  },
+  "ObjectStates": [
+    {
+      "GUID": "a1b2c3",
+      "Name": "HandTrigger",
+      "Transform": {
+        "posX": 0,
+        "posY": 3.6,
+        "posZ": -33.5,
+        "rotX": 0,
+        "rotY": 0,
+        "rotZ": 0,
+        "scaleX": 34.0,
+        "scaleY": 6.0,
+        "scaleZ": 6.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "ColorDiffuse": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5
+      },
+      "Locked": true,
+      "Grid": false,
+      "Snap": false,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "FogColor": "Red",
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    },
+    {
+      "GUID": "d4e5f6",
+      "Name": "HandTrigger",
+      "Transform": {
+        "posX": 0,
+        "posY": 3.6,
+        "posZ": 33.5,
+        "rotX": 0,
+        "rotY": 180,
+        "rotZ": 0,
+        "scaleX": 34.0,
+        "scaleY": 6.0,
+        "scaleZ": 6.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "ColorDiffuse": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5
+      },
+      "Locked": true,
+      "Grid": false,
+      "Snap": false,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "FogColor": "Blue",
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    },
+    {
+      "GUID": "b7c8d9",
+      "Name": "HandTrigger",
+      "Transform": {
+        "posX": 58,
+        "posY": 3.6,
+        "posZ": 58,
+        "rotX": 0,
+        "rotY": 0,
+        "rotZ": 0,
+        "scaleX": 34.0,
+        "scaleY": 6.0,
+        "scaleZ": 6.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "ColorDiffuse": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5
+      },
+      "Locked": true,
+      "Grid": false,
+      "Snap": false,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "FogColor": "Yellow",
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    },
+    {
+      "GUID": "e1f2a3",
+      "Name": "HandTrigger",
+      "Transform": {
+        "posX": -58,
+        "posY": 3.6,
+        "posZ": 58,
+        "rotX": 0,
+        "rotY": 0,
+        "rotZ": 0,
+        "scaleX": 34.0,
+        "scaleY": 6.0,
+        "scaleZ": 6.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "ColorDiffuse": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5
+      },
+      "Locked": true,
+      "Grid": false,
+      "Snap": false,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "FogColor": "Green",
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ],
+  "VersionNumber": "v13.2.2"
+}

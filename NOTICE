@@ -1,0 +1,30 @@
+Riftbound by Ogy
+Copyright 2026 Ogy
+
+This project is licensed under the Apache License, Version 2.0 (see LICENSE).
+The license covers the code, the tools and the original artwork in assets/.
+It does not cover Riftbound card names, text, art or any other material
+owned by Riot Games.
+
+------------------------------------------------------------------------
+Third-party code
+------------------------------------------------------------------------
+
+The deck-code decoder in src/Global.lua and the decoder mirror in
+tools/ref_decode.py are ports of RiftboundDeckCodes by Piltover Archive,
+https://github.com/Piltover-Archive/RiftboundDeckCodes
+Copyright 2025 PiltoverArchive, licensed under the Apache License 2.0.
+The test fixtures in tests/fixtures/ are copied from that project unchanged.
+
+------------------------------------------------------------------------
+Riot Games
+------------------------------------------------------------------------
+
+Riftbound by Ogy was created under Riot Games' "Legal Jibber Jabber" policy
+using assets owned by Riot Games. Riot Games does not endorse or sponsor
+this project.
+
+No Riot Games assets are included in this repository or in the release
+files. Card data and card images are loaded from Riot's official card
+gallery (playriftbound.com) when a player imports a deck, with the
+community Riftcodex API (https://api.riftcodex.com) as a fallback.

@@ -1,0 +1,51 @@
+name: Bug report
+description: Something in the table doesn't work as it should
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! The more of this you fill in, the faster it can be fixed.
+  - type: input
+    id: version
+    attributes:
+      label: Mod version
+      description: Shown at the bottom of the host console and in chat when the table loads (e.g. 4.0.0).
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options: ["1v1", "2v2", "FFA 3", "FFA 4"]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      placeholder: "I dragged a rune onto the BOTTOM frame and it landed next to the rune deck instead."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Import deck
+        2. Start game, Random
+        3. ...
+  - type: input
+    id: deck
+    attributes:
+      label: Deck code (if it's about importing or cards)
+  - type: textarea
+    id: chat
+    attributes:
+      label: Chat or error messages
+      description: Copy any lines starting with [Riftbound], and any red error text from TTS.
+      render: text
+  - type: textarea
+    id: screens
+    attributes:
+      label: Screenshots
+      description: Drag images in here.
