@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.2
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.3
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.2"
+MOD_VERSION = "1.0.3"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -728,6 +728,8 @@ function officialItemRange(r)
   }
 end
 
+RUNE_FALLBACK_SETS = { "RAD", "VEN" }
+
 -- Official data first; anything it can't resolve falls back to Riftcodex
 function fetchCards(codes, callback)
   loadOfficial(function(off, err)
@@ -749,9 +751,20 @@ function fetchCards(codes, callback)
         item = read(canonKey(p, false))
         usedBase = item ~= nil
       end
+      -- Basic runes are the same card in every set, but Riot's gallery only
+      -- lists some sets' rune printings (no UNL-R.. at all): use another set's.
+      local usedOther
+      if off and p and p.prefix == "R" and not item then
+        for _, s in ipairs(RUNE_FALLBACK_SETS) do
+          local q = { set = s, prefix = "R", num = p.num, variant = p.variant }
+          item = read(canonKey(q, true)) or read(canonKey(q, false))
+          if item then usedOther = s; break end
+        end
+      end
       if item and item.media.image_url then
         info[code] = cardInfoFromItem(item, code)
         if usedBase then warnings[#warnings + 1] = code .. ": that printing isn't listed, used the base art" end
+        if usedOther then warnings[#warnings + 1] = code .. ": not in Riot's gallery, used the " .. usedOther .. " printing of the same rune" end
       else
         rest[#rest + 1] = code
       end
@@ -1701,8 +1714,10 @@ MARKERS = {
   Damage5 = { label = "5",    name = "5 Damage",        tag = "RB_Damage", tint = { 0.50, 0.08, 0.06 }, ink = { 1, 0.95, 0.9 } },
   Stunned = { label = "STUN", name = "Stunned",         tag = "RB_Stun",   tint = { 0.55, 0.38, 0.85 }, ink = { 1, 1, 1 } },
   Tag     = { label = "TAG",  name = "Tag",             tag = "RB_Tag",    tint = { 0.92, 0.89, 0.82 }, ink = { 0.25, 0.22, 0.18 } },
+  -- token gear without a card in Riot's gallery
+  Bomb    = { label = "BOMB", name = "Bomb (gear token)", tag = "RB_Bomb", tint = { 0.20, 0.20, 0.22 }, ink = { 1.0, 0.62, 0.20 } },
 }
-MARKER_ORDER = { "Buff", "Might2", "Might3", "Might5", "Damage1", "Damage3", "Damage5", "Stunned", "Tag" }
+MARKER_ORDER = { "Buff", "Might2", "Might3", "Might5", "Damage1", "Damage3", "Damage5", "Stunned", "Tag", "Bomb" }
 
 -- Prints the value on top of a marker (buttons are not saved, so this runs
 -- again on load and whenever a marker is spawned or dropped)

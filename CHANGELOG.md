@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3
+
+- Fixed: runes whose printing isn't in Riot's card gallery (for example UNL-R05a) showed only a card back. They now use the same rune from another set.
+- New **Bomb** marker in the supply. Riot's gallery has no Bomb token card yet.
+
 ## 1.0.2
 
 - Fixed: after Peek, the Trash and Banish buttons sent the cards back to your hand instead of moving them.

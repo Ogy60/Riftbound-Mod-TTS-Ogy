@@ -46,7 +46,7 @@ From left to right:
 
 - **Dice:** each seat has two d6 and a d20 on its DICE spot.
 - **Supply:** in 1v1 it sits at both sides of the table; otherwise in the table corners, each set facing its side.
-  - It has piles of markers (Buff +1, Might +2 / +3 / +5, Damage 1 / 3 / 5, Stunned, Tag) plus d6 and d20.
+  - It has piles of markers (Buff +1, Might +2 / +3 / +5, Damage 1 / 3 / 5, Stunned, Tag, Bomb) plus d6 and d20.
   - Grab one and a fresh one appears.
 - **Token card selector:** shows one token card (Recruit, Sprite, Gold, …). Click **<** / **>** to pick, then drag it out. Dropping a token card back onto the pile returns it.
 - Anything that falls off the table is put back automatically.
