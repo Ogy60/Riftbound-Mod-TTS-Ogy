@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6
+
+- Fixed: printed battlefield text floated above cards on the battlefield. It now lies on the mat, under the cards.
+
 ## 1.0.5
 
 - Mulligan by dragging cards from your hand back onto your Main Deck, then press Mulligan done. You draw the same number; the cards you put back go to the bottom. Setting cards aside on your Base still works.

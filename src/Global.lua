@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.5
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.6
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.5"
+MOD_VERSION = "1.0.6"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -2148,6 +2148,24 @@ function clearBattlefieldText(slotX)
   end
 end
 
+-- Height of the topmost table surface (mat tile, battlefield mat, table)
+-- at x, z, ignoring cards, decks, text and other loose objects.
+function boardTopAt(x, z)
+  local top
+  local ok, hits = pcall(Physics.cast, { origin = { x, surfaceY + 10, z }, direction = { 0, -1, 0 },
+    type = 1, max_distance = 20 })
+  if ok and hits then
+    for _, h in ipairs(hits) do
+      local o = h.hit_object
+      if o and o.type ~= "Card" and o.type ~= "Deck" and o.type ~= "3DText"
+          and o.hasTag and o.hasTag("RB_Board") and not o.hasTag("RB_BFText") then
+        if not top or h.point.y > top then top = h.point.y end
+      end
+    end
+  end
+  return top or (surfaceY + 0.12)
+end
+
 function imprintBattlefield(card)
   local p = card.getPosition()
   local best, bestD
@@ -2186,13 +2204,15 @@ function imprintBattlefield(card)
     return
   end
   local text = card.getName() .. "\n" .. wrapText(rules, 34)
-  local y = surfaceY + 0.3
   local spots = { { best, -3.3, 0 }, { best, 3.3, 180 } }
   if state.mode ~= "Duel" then
     spots[#spots + 1] = { best - 4.6, 0, 90 }
     spots[#spots + 1] = { best + 5.6, 0, 270 }
   end
   for _, sp in ipairs(spots) do
+    -- just above the mat surface: lower than any card lying there, so cards
+    -- cover the text instead of the text covering the cards
+    local y = boardTopAt(sp[1], sp[2]) + 0.02
     spawnObject({
       type = "3DText", position = { sp[1], y, sp[2] }, rotation = { 90, sp[3], 0 }, sound = false,
       callback_function = function(o)
