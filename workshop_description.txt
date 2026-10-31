@@ -19,7 +19,7 @@ A free, unofficial Tabletop Simulator table for the Riftbound trading card game.
 [*]Press [b]Sit here[/b] on the control strip at your side of the table.
 [*]Host picks the mode on the host console.
 [*]Paste your deck code into your strip and press [b]Import[/b]. Drag one champion from your hand onto the Champion slot.
-[*]Host presses [b]Start game[/b]. Mulligan by dragging up to 2 cards onto your Base, then press [b]Mulligan done[/b].
+[*]Host presses [b]Start game[/b]. Mulligan by dragging up to 2 cards back onto your deck, then press [b]Mulligan done[/b].
 [/olist]
 The in-game notebook and [b]!rb help[/b] in chat explain the rest.
 

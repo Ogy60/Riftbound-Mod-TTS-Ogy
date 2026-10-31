@@ -26,7 +26,7 @@ The table images (playmat, battlefield mat, card back) are built in, so there's 
    - Your champion copies go into your **hand**, hidden from opponents. Drag one onto the Champion slot, or right-click it → **Keep as champion**. That confirms your choice: the other copies go into your deck and the deck is shuffled.
    - If you don't choose, this happens automatically at game start.
 4. **Host:** **Start game** – *Random* or choose who goes first. Turn order, battlefields and opening hands follow the official rules for each mode.
-5. **Mulligan:** drag up to 2 cards onto your Base → **Mulligan done** (empty Base = keep).
+5. **Mulligan:** drag up to 2 cards from your hand back onto your Main Deck → **Mulligan done**. You draw the same number, and the cards you put back end up at the bottom of your deck. To keep your hand, just press **Mulligan done**.
 6. **Turns** run automatically: ready, scoring reminder, channel 2, draw 1. Press **End turn** on your strip, or use TTS's own turn button. Units heal at end of turn. First-turn rules and Burn Out are automatic.
    Host can switch **Auto: Off** to step through phases with **Next phase**.
 

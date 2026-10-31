@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.4
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.5
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.4"
+MOD_VERSION = "1.0.5"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -1922,6 +1922,12 @@ function onObjectDrop(color, obj)
       return p.x >= x1 - 0.4 and p.x <= x2 + 0.4 and p.z >= z1 - 0.4 and p.z <= z2 + 0.4
     end
     local deckName = (d.deckZone == "runeDeck") and "rune deck" or "deck"
+    local g = state.game
+    if d.deckZone == "mainDeck" and g and g.phase == "Mulligan" and not (g.mulligan or {})[d.owner]
+        and (inside("top") or inside("bottom")) then
+      mulliganPutBack(d.owner, obj)
+      return
+    end
     if inside("bottom") then
       recycleCards(d.owner, { obj }, d.deckZone, false)
       broadcastToColor("Put on the bottom of your " .. deckName .. ".", color, { 0.8, 0.8, 0.8 })
@@ -2080,7 +2086,7 @@ function startGame(host, firstChoice)
 
   state.game = {
     order = order, turnIdx = 1, turn = 0, phase = "Setup",
-    mulligan = {}, firstTurnDone = {},
+    mulligan = {}, firstTurnDone = {}, mullBack = {},
   }
   state.points, state.xp = {}, {}
   for _, k in ipairs(scoreKeys()) do state.points[k] = 0 end
@@ -2107,7 +2113,7 @@ function startGame(host, firstChoice)
   Wait.time(function()
     state.game.phase = "Mulligan"
     refreshScore()
-    announce("MULLIGAN: drag up to 2 cards onto your BASE, then press Mulligan done on your side of the table (empty Base = keep your hand).")
+    announce("MULLIGAN: drag up to 2 cards from your hand back onto your Main Deck, then press Mulligan done. You draw the same number; the cards you put back go to the bottom.")
   end, 4.4)
   refreshScore()
 end
@@ -2240,6 +2246,29 @@ function placeBattlefields(order)
   end
 end
 
+-- Mulligan by dragging: a card put back onto the Main Deck goes straight to
+-- the bottom (that's where set-aside cards end up anyway) and is counted;
+-- Mulligan done then draws that many.
+function mulliganPutBack(color, obj)
+  local g = state.game
+  g.mullBack = g.mullBack or {}
+  local n = g.mullBack[color] or 0
+  local onBase = 0
+  for _, o in ipairs(cardsInArea(color, BASE_AREA)) do
+    if o.hasTag("RB_" .. color) then onBase = onBase + 1 end
+  end
+  if n + onBase >= 2 then
+    obj.setRotation({ 0, seatFrame(color).cardRotY, 0 })
+    obj.setPosition(handPos(color))
+    broadcastToColor("You can put back at most 2 cards. Press Mulligan done.", color, { 1, 0.6, 0.4 })
+    return
+  end
+  g.mullBack[color] = n + 1
+  recycleCards(color, { obj }, "mainDeck", false)
+  broadcastToColor("Card put back (" .. (n + 1) .. "/2). You draw " .. (n + 1) .. " when you press Mulligan done.",
+    color, { 0.85, 0.85, 0.7 })
+end
+
 function mulliganDone(color)
   local g = state.game
   if not g or g.phase ~= "Mulligan" then
@@ -2255,17 +2284,21 @@ function mulliganDone(color)
   for _, o in ipairs(cardsInArea(color, BASE_AREA)) do
     if o.hasTag("RB_" .. color) then set[#set + 1] = o end
   end
-  if #set > 2 then
-    broadcastToColor("You can set aside at most 2 cards (found " .. #set .. " in your Base).", color, { 1, 0.5, 0.4 })
+  local back = (g.mullBack or {})[color] or 0
+  if #set + back > 2 then
+    broadcastToColor("You can set aside at most 2 cards (" .. back .. " put back, " .. #set ..
+      " on your Base). Move cards from your Base back to your hand.", color, { 1, 0.5, 0.4 })
     return
   end
   g.mulligan[color] = true
-  if #set > 0 then
-    -- Draw the same number, then recycle the set-aside cards to the bottom
-    drawCards(color, #set, function()
-      Wait.time(function() recycleCards(color, set, "mainDeck", true) end, 0.4)
+  local total = #set + back
+  if total > 0 then
+    -- Draw the same number, then recycle cards set aside on the Base to the
+    -- bottom (cards put back onto the deck are already there)
+    drawCards(color, total, function()
+      if #set > 0 then Wait.time(function() recycleCards(color, set, "mainDeck", true) end, 0.4) end
     end)
-    announce(color .. " mulliganed " .. #set .. " card" .. (#set == 1 and "" or "s") .. ".", COLOR_RGB[color])
+    announce(color .. " mulliganed " .. total .. " card" .. (total == 1 and "" or "s") .. ".", COLOR_RGB[color])
   else
     announce(color .. " keeps their hand.", COLOR_RGB[color])
   end
@@ -2944,7 +2977,7 @@ SEAT_CONTROLS = {
   { "status",  -17.8, -1, 10.0, "",              nil,       "label",   nil },
   { "peek",    -11.0, -1, 3.0,  "Peek",          "peek",    "normal",  "Look at the top card of your deck (right-click: top 3)" },
   { "reveal",   -7.7, -1, 3.0,  "Reveal",        "reveal",  "normal",  "Reveal the top card of your deck to everyone (right-click: top 3)" },
-  { "mull",     -4.0, -1, 3.8,  "Mulligan done", "mull",    "normal",  "Cards on your Base are set aside, redrawn and recycled" },
+  { "mull",     -4.0, -1, 3.8,  "Mulligan done", "mull",    "normal",  "Draw one card for each card you put back onto your Main Deck" },
   { "ready",    -0.3, -1, 3.0,  "Ready all",     "ready",   "normal",  "Ready all your cards" },
   { "shuffle",   3.0, -1, 3.0,  "Shuffle",       "shuffle", "normal",  "Shuffle your main deck" },
   { "burn",      6.3, -1, 3.0,  "Burn out",      "burn",    "normal",  "Shuffle trash into deck, an opponent gains 1 point" },
