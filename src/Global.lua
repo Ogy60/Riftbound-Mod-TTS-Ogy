@@ -34,7 +34,7 @@
 
 MOD_NAME    = "Riftbound by Ogy"
 MOD_VERSION = "4.0.0"
-REPO_URL    = "https://github.com/OWNER/riftbound-by-ogy"
+REPO_URL    = "https://github.com/Ogy60/riftbound-by-ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
               "assets owned by Riot Games. Riot Games does not endorse or sponsor this project."
