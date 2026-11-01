@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.10
+
+- Fixed: buttons could drift out of place and pile up on top of other buttons. The blocks that carry them are now created already locked.
+
 ## 1.0.9
 
 - Fixed: after the host switched Auto on or off, a player's control strip could show a second, shifted set of buttons.

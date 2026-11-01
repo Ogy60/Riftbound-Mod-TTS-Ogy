@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.9
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.10
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.9"
+MOD_VERSION = "1.0.10"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -1466,20 +1466,15 @@ function showActions(color)
     local c2 = toWorld(color, u + w / 2 + 0.3, ACTION_ROW_V + 1.4)
     table.insert(actionRects[color], { act,
       math.min(c1[1], c2[1]), math.min(c1[3], c2[3]), math.max(c1[1], c2[1]), math.max(c1[3], c2[3]) })
-    spawnObject({
-      type = "BlockSquare", position = { p[1], surfaceY - 0.55, p[3] },
-      rotation = { 0, f.textRotY + BTN_ROT_OFFSET, 0 }, sound = false,
-      callback_function = function(o)
-        o.setLock(true)
-        o.addTag("RB_Board")
-        o.addTag("RB_Action_" .. color)
+    spawnLockedBlock({ p[1], surfaceY - 0.55, p[3] }, f.textRotY + BTN_ROT_OFFSET, { 1, 1, 1 }, { 0.075, 0.09, 0.115 },
+      { "RB_Board", "RB_Action_" .. color }, "", function(o)
+        o.interactable = true
         local bp = btnParams(a[2], name, w, 1.1, (act == "done") and "normal" or "primary",
           (act == "done") and "Close this row (cards stay where they are)"
           or "Click: all highlighted cards. Or drag one card onto this button.")
         bp.position = { 0, 0.72, 0 }
         o.createButton(bp)
-      end,
-    })
+      end)
   end
 end
 
@@ -2593,17 +2588,24 @@ function spawnLabels()
   end
 end
 
-function spawnBlock(pos, scale, tint, name, tags)
-  spawnObject({
-    type = "BlockSquare", position = pos, scale = scale, sound = false,
+-- Blocks are created already locked (and tagged), so TTS physics never
+-- pushes a button anchor out of the table before it is locked.
+function spawnLockedBlock(pos, rotY, scale, tint, tags, name, cb)
+  return spawnObjectData({
+    data = { Name = "BlockSquare", Nickname = name or "", Locked = true,
+             Transform = { posX = pos[1], posY = pos[2], posZ = pos[3], rotX = 0, rotY = rotY or 0, rotZ = 0,
+                           scaleX = scale[1], scaleY = scale[2], scaleZ = scale[3] },
+             ColorDiffuse = { r = tint[1], g = tint[2], b = tint[3] }, Tags = tags },
+    position = pos, rotation = { 0, rotY or 0, 0 },
     callback_function = function(o)
-      o.setColorTint(tint)
       o.setLock(true)
       o.interactable = false
-      o.setName(name or "")
-      for _, t in ipairs(tags) do o.addTag(t) end
-    end,
-  })
+      if cb then cb(o) end
+    end })
+end
+
+function spawnBlock(pos, scale, tint, name, tags)
+  spawnLockedBlock(pos, 0, scale, tint, tags, name)
 end
 
 function spawnTable()
@@ -2998,20 +3000,14 @@ ctlGen, ctlObjs = 0, {}
 
 function spawnControl(key, x, z, rotY, kind, params)
   local gen = ctlGen
-  local made = spawnObject({
-    type = "BlockSquare", position = { x, surfaceY - 0.55, z },
-    rotation = { 0, rotY + BTN_ROT_OFFSET, 0 }, scale = { 1, 1, 1 }, sound = false,
-    callback_function = function(o)
+  local made = spawnLockedBlock({ x, surfaceY - 0.55, z }, rotY + BTN_ROT_OFFSET, { 1, 1, 1 }, { 0.075, 0.09, 0.115 },
+    { "RB_Board", "RB_Ctl" }, "", function(o)
       if gen ~= ctlGen then o.destruct(); return end
-      o.setLock(true)
-      o.setColorTint({ 0.075, 0.09, 0.115 })
-      o.addTag("RB_Board")
-      o.addTag("RB_Ctl")
+      o.interactable = true
       params.position = { 0, 0.62, 0 }
       if kind == "input" then o.createInput(params) else o.createButton(params) end
       ctl[key] = o
-    end,
-  })
+    end)
   ctlObjs[#ctlObjs + 1] = made
 end
 
