@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.8
+
+- Token selector: added Mech, Bomb, Sand Soldier, Shadow Clone and Tentacle. Riot's gallery has no cards for them, so they show the card back with their name and stats printed on it.
+
 ## 1.0.7
 
 - Turn phases are manual by default: press **Next phase** to go through ready, channel and draw. The host can switch **Auto: On** to run them automatically.

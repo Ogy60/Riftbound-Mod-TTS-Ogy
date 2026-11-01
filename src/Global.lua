@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.7
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.8
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.7"
+MOD_VERSION = "1.0.8"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -1828,6 +1828,7 @@ function onObjectSpawn(obj)
     if obj ~= nil then
       addCardMenu(obj)
       if obj.hasTag("RB_Marker") then labelMarker(obj) end
+      labelGenericToken(obj)
     end
   end, 1)
 end
@@ -2772,6 +2773,41 @@ function stepToken(d)
   spawnTokenDisplay()
 end
 
+-- Tokens that cards create but Riot's gallery has no card for: shown with
+-- the card back and a printed name / stats label.
+EXTRA_TOKENS = {
+  { "Mech", "Unit token", 3, "" },
+  { "Bomb", "Gear token", nil, "[Deploy]. When it dies, deal 2 to an enemy there and kill your other Bombs there." },
+  { "Sand Soldier", "Unit token", 2, "" },
+  { "Shadow Clone", "Unit token", 0, "When I attack, you may banish a unit from your trash. If you do, give me [Assault 4] this turn." },
+  { "Tentacle", "Unit token", 1, "From Bilgewater." },
+}
+
+function extraTokenInfo(t)
+  local stat = t[3] and (t[3] .. " Might") or "Gear"
+  local text = t[4] ~= "" and t[4] or nil
+  return {
+    code = "TOKEN", name = t[1] .. " (" .. stat .. ")", type = "Token", supertype = "Token", tags = {},
+    image = nil, landscape = false, extraTag = "RB_GenericToken",
+    desc = t[2] .. "  |  " .. stat .. (text and ("\n\n" .. text) or "") .. "\n\nNo official card art for this token yet.",
+    rules = text or "",
+  }
+end
+
+-- Name / stats printed on a generic token card (buttons aren't saved, so
+-- this runs again on load and whenever such a card is spawned)
+function labelGenericToken(o)
+  if o == nil or not o.hasTag("RB_GenericToken") then return end
+  local n = o.getName()
+  local name, stat = n:match("^(.-) %((.-)%)$")
+  pcall(function()
+    o.clearButtons()
+    o.createButton({ click_function = "rb_noop", function_owner = Global, label = (name or n):upper() .. "\n" .. (stat or ""),
+      position = { 0, 0.3, 0 }, rotation = { 0, 180, 0 }, width = 820, height = 520, font_size = 150,
+      color = { 0.07, 0.08, 0.11 }, font_color = { 0.95, 0.85, 0.55 } })
+  end)
+end
+
 function spawnTokenCards()
   if backURL() == "" or tokenBuilding then return end
   tokenBuilding = true
@@ -2787,6 +2823,9 @@ function spawnTokenCards()
         info.type = "Token"
         list[#list + 1] = info
       end
+    end
+    for _, t in ipairs(EXTRA_TOKENS) do
+      if not seen[t[1]] then seen[t[1]] = true; list[#list + 1] = extraTokenInfo(t) end
     end
     table.sort(list, function(a, b) return a.name < b.name end)
     tokenList = list
@@ -3464,6 +3503,7 @@ function onLoad(saved)
   for _, o in ipairs(getObjects()) do
     addCardMenu(o)
     if o.hasTag("RB_Marker") then labelMarker(o) end
+    labelGenericToken(o)
   end
   Wait.time(rescueFallen, 2, -1)
   print(MOD_NAME .. " v" .. MOD_VERSION .. "  -  sit down with the button on your side of the table. Chat: !rb help  -  bugs: !rb bug")
