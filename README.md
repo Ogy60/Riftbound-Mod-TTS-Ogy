@@ -27,15 +27,15 @@ The table images (playmat, battlefield mat, card back) are built in, so there's 
    - If you don't choose, this happens automatically at game start.
 4. **Host:** **Start game** – *Random* or choose who goes first. Turn order, battlefields and opening hands follow the official rules for each mode.
 5. **Mulligan:** drag up to 2 cards from your hand back onto your Main Deck → **Mulligan done**. You draw the same number, and the cards you put back end up at the bottom of your deck. To keep your hand, just press **Mulligan done**.
-6. **Turns** run automatically: ready, scoring reminder, channel 2, draw 1. Press **End turn** on your strip, or use TTS's own turn button. Units heal at end of turn. First-turn rules and Burn Out are automatic.
-   Host can switch **Auto: Off** to step through phases with **Next phase**.
+6. **Turns:** press **Next phase** on your strip to go through the steps: ready, scoring reminder, channel 2, draw 1, then your main phase. Press **End turn** on your strip, or use TTS's own turn button. Units heal at end of turn. First-turn rules and Burn Out are automatic.
+   The host can switch **Auto: On** on the host console to run these steps automatically at the start of each turn.
 
 ### Your control strip
 
 From left to right:
 - Sit here
 - Deck code (X clears it) · Import
-- Draw 1 · Channel 1 · Next phase (only with Auto: Off)
+- Draw 1 · Channel 1 · Next phase (hidden with Auto: On)
 - Points − / + · status
 - Peek · Reveal
 - Mulligan done · Ready all · Shuffle · Burn out · End turn

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.7
+
+- Turn phases are manual by default: press **Next phase** to go through ready, channel and draw. The host can switch **Auto: On** to run them automatically.
+
 ## 1.0.6
 
 - Fixed: printed battlefield text floated above cards on the battlefield. It now lies on the mat, under the cards.
