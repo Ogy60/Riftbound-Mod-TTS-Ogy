@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.8
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.9
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.8"
+MOD_VERSION = "1.0.9"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -2992,11 +2992,17 @@ function inputParams(placeholder, fn, w, h, value)
   }
 end
 
+-- Controls belong to a build generation: a rebuild removes every control of
+-- the old generation, including ones that were still being spawned.
+ctlGen, ctlObjs = 0, {}
+
 function spawnControl(key, x, z, rotY, kind, params)
-  spawnObject({
+  local gen = ctlGen
+  local made = spawnObject({
     type = "BlockSquare", position = { x, surfaceY - 0.55, z },
     rotation = { 0, rotY + BTN_ROT_OFFSET, 0 }, scale = { 1, 1, 1 }, sound = false,
     callback_function = function(o)
+      if gen ~= ctlGen then o.destruct(); return end
       o.setLock(true)
       o.setColorTint({ 0.075, 0.09, 0.115 })
       o.addTag("RB_Board")
@@ -3006,6 +3012,7 @@ function spawnControl(key, x, z, rotY, kind, params)
       ctl[key] = o
     end,
   })
+  ctlObjs[#ctlObjs + 1] = made
 end
 
 -- Per-seat click handlers are generated so one function knows its seat
@@ -3145,15 +3152,15 @@ end
 
 controlsBuilding = false
 function buildControls()
-  if controlsBuilding then return end
-  controlsBuilding = true
-  Wait.time(function() controlsBuilding = false end, 2.5)
+  ctlGen = ctlGen + 1
+  for _, o in ipairs(ctlObjs) do if alive(o) then o.destruct() end end
   for _, o in ipairs(getObjects()) do
     if o.hasTag("RB_Ctl") then o.destruct() end
   end
-  ctl = {}
+  ctlObjs, ctl = {}, {}
   for _, c in ipairs(mode().seats) do buildSeatControls(c) end
   buildHostControls()
+  tokenBuilding = false            -- the token selector's controls were just removed too
   Wait.time(spawnTokenCards, 1.0)
   Wait.time(refreshControls, 1.5)
 end

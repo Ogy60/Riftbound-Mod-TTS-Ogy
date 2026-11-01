@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.9
+
+- Fixed: after the host switched Auto on or off, a player's control strip could show a second, shifted set of buttons.
+
 ## 1.0.8
 
 - Token selector: added Mech, Bomb, Sand Soldier, Shadow Clone and Tentacle. Riot's gallery has no cards for them, so they show the card back with their name and stats printed on it.
