@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.11
+
+- Fixed: printed battlefield text still showed on top of cards lying on the battlefield. It now sits directly on the mat surface, below the cards.
+
 ## 1.0.10
 
 - Fixed: buttons could drift out of place and pile up on top of other buttons. The blocks that carry them are now created already locked.

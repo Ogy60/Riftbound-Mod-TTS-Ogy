@@ -1,5 +1,5 @@
 --[[
-  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.10
+  RIFTBOUND MOD TTS OGY  -  Riftbound TCG table for Tabletop Simulator    v1.0.11
   =====================================================================
   Modes      1v1, 2v2 (teams, shared points), FFA 3, FFA 4 - every player
              gets their own table side in the multiplayer modes
@@ -33,7 +33,7 @@
 ------------------------------------------------------------------------
 
 MOD_NAME    = "Riftbound Mod TTS Ogy"
-MOD_VERSION = "1.0.10"
+MOD_VERSION = "1.0.11"
 REPO_URL    = "https://github.com/Ogy60/Riftbound-Mod-TTS-Ogy"
 ISSUES_URL  = REPO_URL .. "/issues"
 DISCLAIMER  = MOD_NAME .. " was created under Riot Games' \"Legal Jibber Jabber\" policy using " ..
@@ -2159,7 +2159,7 @@ function boardTopAt(x, z)
       end
     end
   end
-  return top or (surfaceY + 0.12)
+  return top or (surfaceY + 0.07)
 end
 
 function imprintBattlefield(card)
@@ -2208,7 +2208,8 @@ function imprintBattlefield(card)
   for _, sp in ipairs(spots) do
     -- just above the mat surface: lower than any card lying there, so cards
     -- cover the text instead of the text covering the cards
-    local y = boardTopAt(sp[1], sp[2]) + 0.02
+    -- (cards are only ~0.01 thick, so the text has to sit right on the surface)
+    local y = boardTopAt(sp[1], sp[2]) + 0.004
     spawnObject({
       type = "3DText", position = { sp[1], y, sp[2] }, rotation = { 90, sp[3], 0 }, sound = false,
       callback_function = function(o)
